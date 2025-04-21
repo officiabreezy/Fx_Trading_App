@@ -21,12 +21,6 @@ export class AuthController {
   }
 
   @Post('login')
-  
-
-    // Dummy logic - replace with actual DB user lookup
-    // if (email !== 'test@example.com' || password !== 'password123') {
-    //   throw new UnauthorizedException('Invalid credentials');
-    // }
 
     async login(@Body() body: { email: string; password: string }) {
       const user = await this.authService.login(body.email, body.password);
@@ -36,6 +30,7 @@ export class AuthController {
       sub: user.id,
       email: user.email,
       verified: user.isVerified,
+      walletId: user.wallets[0]?.id,
     };
 
     const token = await this.jwtService.signAsync(userPayload);

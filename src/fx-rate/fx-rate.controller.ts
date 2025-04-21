@@ -10,7 +10,7 @@ export class FxRateController {
 
   @Get('rate')
   async getRate(@Query('from') from: string, @Query('to') to: string) {
-    const rate = await this.fxRateService.getRate(from, to);
+    const rate = await this.fxRateService.getFxRate(from, to);
     return { from, to, rate };
   }
 }

@@ -1,5 +1,4 @@
 
-  // src/auth/dto/fund.wallet.dto.ts
 import { IsNumber, IsString } from 'class-validator';
 
 export class FundWalletDto {

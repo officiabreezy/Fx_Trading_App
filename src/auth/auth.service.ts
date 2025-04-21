@@ -21,7 +21,11 @@ export class AuthService {
   }
 
   async login(email: string, password: string): Promise<User> {
-    const user = await this.findByEmail(email);
+    const user = await this.userRepository.findOne({
+      where: {email},
+      relations: ['wallets'],
+    });
+
     if (!user) {
       throw new UnauthorizedException('Invalid email address');
     }

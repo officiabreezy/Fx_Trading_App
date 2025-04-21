@@ -5,14 +5,15 @@ import { getDatabaseConfig } from './config/database';
 import { AuthModule } from './auth/auth.module';
 import { WalletModule } from './wallet/wallet.module';
 import { FxRateModule } from './fx-rate/fx-rate.module';
-import { TradingController } from './trading/trading.controller';
+// import { TradingController } from './trading/trading.controller';
 import { CacheModule } from '@nestjs/cache-manager';
 import { HttpModule } from '@nestjs/axios';
-import { FxService } from './fx/fx.service';
-import { FxController } from './fx/fx.controller';
+import { FxRateService } from './fx-rate/fx-rate.service';
+import { FxRateController } from './fx-rate/fx-rate.controller';
 // import { TransactionModule } from './transactions/transaction.module';
 
 import {config} from 'dotenv';
+import { TransactionModule } from './transactions/transaction.module';
 config();
 
 @Module({
@@ -23,12 +24,14 @@ config();
     WalletModule,
     HttpModule,
     FxRateModule,
+    TransactionModule,
     CacheModule.register({
       isGlobal: true,
       ttl:3600,
     }),
   ],
-  providers: [FxService],
-  controllers: [TradingController,FxController],
+  providers: [FxRateService],
+  controllers: [FxRateController],
+  // controllers: [TradingController]
 })
 export class AppModule {}
